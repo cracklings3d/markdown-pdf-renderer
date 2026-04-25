@@ -33,3 +33,9 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 markdown_pdf_renderer = ["styles/*.css"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --cov=markdown_pdf_renderer --cov-report=term-missing"
