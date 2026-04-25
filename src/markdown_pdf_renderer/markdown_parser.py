@@ -11,7 +11,9 @@ from markdown.extensions.fenced_code import FencedCodeExtension
 from markdown.extensions.tables import TableExtension
 from markdown.extensions.toc import TocExtension
 
-from .styles import get_default_css
+from typing import Literal
+
+from .styles import get_default_css, get_dark_css
 
 
 class MarkdownParser:
@@ -22,6 +24,7 @@ class MarkdownParser:
         header: Optional[str] = None,
         footer: Optional[str] = None,
         page_numbers: bool = True,
+        theme: Literal["default", "dark"] = "default",
     ) -> None:
         if extensions is None:
             extensions = [
@@ -34,7 +37,12 @@ class MarkdownParser:
             ]
 
         self.extensions = extensions
-        self.css = css if css is not None else get_default_css()
+        if css is not None:
+            self.css = css
+        elif theme == "dark":
+            self.css = get_dark_css()
+        else:
+            self.css = get_default_css()
         self.header = header
         self.footer = footer
         self.page_numbers = page_numbers
