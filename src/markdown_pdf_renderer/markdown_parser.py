@@ -19,6 +19,9 @@ class MarkdownParser:
         self,
         extensions: Optional[list[str]] = None,
         css: Optional[str] = None,
+        header: Optional[str] = None,
+        footer: Optional[str] = None,
+        page_numbers: bool = True,
     ) -> None:
         if extensions is None:
             extensions = [
@@ -32,6 +35,9 @@ class MarkdownParser:
 
         self.extensions = extensions
         self.css = css if css is not None else get_default_css()
+        self.header = header
+        self.footer = footer
+        self.page_numbers = page_numbers
         self.md = markdown.Markdown(
             extensions=self.extensions,
             extension_configs={
@@ -104,6 +110,14 @@ class MarkdownParser:
         return original_tag
 
     def _wrap_html(self, body: str) -> str:
+        header_html = ""
+        if self.header:
+            header_html = f'<div class="header">{self.header}</div>'
+
+        footer_html = ""
+        if self.footer:
+            footer_html = f'<div class="footer">{self.footer}</div>'
+
         return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,6 +128,8 @@ class MarkdownParser:
     </style>
 </head>
 <body>
+{header_html}
 {body}
+{footer_html}
 </body>
 </html>"""

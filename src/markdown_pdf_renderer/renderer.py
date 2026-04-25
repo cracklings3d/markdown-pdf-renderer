@@ -1,6 +1,7 @@
 """PDF rendering using WeasyPrint."""
 
 from pathlib import Path
+from typing import Optional
 
 import weasyprint
 
@@ -22,6 +23,17 @@ class PDFRenderer:
         output_path.write_bytes(pdf)
 
 
-def render(markdown_file: Path, output_file: Path) -> None:
-    renderer = PDFRenderer(MarkdownParser())
+def render(
+    markdown_file: Path,
+    output_file: Path,
+    header: Optional[str] = None,
+    footer: Optional[str] = None,
+    page_numbers: bool = True,
+) -> None:
+    parser = MarkdownParser(
+        header=header,
+        footer=footer,
+        page_numbers=page_numbers,
+    )
+    renderer = PDFRenderer(parser)
     renderer.render_file(markdown_file, output_file)
