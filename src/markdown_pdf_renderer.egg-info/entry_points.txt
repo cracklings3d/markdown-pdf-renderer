@@ -1,0 +1,2 @@
+[console_scripts]
+md-pdf = markdown_pdf_renderer.cli:main
