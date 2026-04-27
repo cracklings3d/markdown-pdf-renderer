@@ -1,9 +1,5 @@
 """Test CLI interface."""
 
-import sys
-from pathlib import Path
-from unittest.mock import patch
-
 import pytest
 from click.testing import CliRunner
 from markdown_pdf_renderer.cli import main
@@ -23,6 +19,11 @@ class TestCLI:
         assert result.exit_code == 0
         assert "INPUT_FILE" in result.output
         assert "OUTPUT_FILE" in result.output
+
+    def test_cli_version(self, runner):
+        result = runner.invoke(main, ["--version"])
+        assert result.exit_code == 0
+        assert result.output == "md-pdf 0.1.0\n"
 
     def test_cli_file_not_found(self, runner, temp_dir):
         result = runner.invoke(main, [temp_dir / "nonexistent.md", temp_dir / "out.pdf"])

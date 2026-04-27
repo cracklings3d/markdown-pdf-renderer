@@ -6,10 +6,22 @@ from typing import Literal, Optional
 
 import click
 
-from .renderer import render
+from . import __version__
 
 
 @click.command()
+@click.option(
+    "--version",
+    is_flag=True,
+    is_eager=True,
+    expose_value=False,
+    callback=lambda ctx, param, value: (
+        click.echo(f"md-pdf {__version__}") or ctx.exit()
+        if value and not ctx.resilient_parsing
+        else None
+    ),
+    help="Show the version and exit.",
+)
 @click.argument("input_file", type=click.Path(exists=True, path_type=Path))
 @click.argument("output_file", type=click.Path(path_type=Path))
 @click.option(
