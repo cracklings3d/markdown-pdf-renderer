@@ -9,8 +9,8 @@ import click
 from . import __version__
 
 
-@click.command()
-@click.version_option(__version__)
+@click.command(name="md-pdf")
+@click.version_option(__version__, message="%(prog)s %(version)s")
 @click.argument("input_file", type=click.Path(exists=True, path_type=Path))
 @click.argument("output_file", type=click.Path(path_type=Path))
 @click.option(
