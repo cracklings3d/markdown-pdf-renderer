@@ -12,7 +12,7 @@ Convert Markdown files to beautifully styled PDF documents.
 - Page numbering
 - Custom CSS theming
 
-## Installation
+## Package installation
 
 ```bash
 pip install markdown-pdf-renderer
@@ -24,6 +24,24 @@ Or install from source:
 git clone https://github.com/cracklings3d/markdown-pdf-renderer.git
 cd markdown-pdf-renderer
 pip install -e .
+```
+
+## Development setup
+
+Canonical PowerShell setup path:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+```
+
+## Testing
+
+Canonical QA command after making a change:
+
+```powershell
+python -m pytest
 ```
 
 ## CLI Usage
@@ -119,6 +137,14 @@ Dark background with light text for different use cases.
 - Pygments
 - Click
 - markdown
+
+### Windows System Dependencies
+
+WeasyPrint requires GTK3 runtime libraries on Windows. If you encounter errors like `cannot load library 'libgobject-2.0-0'`, install the GTK3 runtime:
+
+1. Download GTK3 from https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer
+2. Run the installer
+3. Restart your terminal and run `python -m pip install -e ".[dev]"` again
 
 ## License
 
