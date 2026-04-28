@@ -6,10 +6,11 @@ from typing import Literal, Optional
 
 import click
 
-from .renderer import render
+from . import __version__
 
 
 @click.command()
+@click.version_option(version=__version__)
 @click.argument("input_file", type=click.Path(exists=True, path_type=Path))
 @click.argument("output_file", type=click.Path(path_type=Path))
 @click.option(
