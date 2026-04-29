@@ -140,11 +140,13 @@ Dark background with light text for different use cases.
 
 ### Windows System Dependencies
 
-WeasyPrint requires GTK3 runtime libraries on Windows. If you encounter errors like `cannot load library 'libgobject-2.0-0'`, install the GTK3 runtime:
+WeasyPrint requires GTK3 runtime libraries on Windows. Acquire the GTK3 runtime as a release artifact:
 
-1. Download GTK3 from https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer
-2. Run the installer
-3. Restart your terminal and run `python -m pip install -e ".[dev]"` again
+```powershell
+Invoke-WebRequest -Uri "https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases/download/2022-01-04/gtk3-runtime-3.24.31-2022-01-04-ts-win64.exe" -OutFile "$env:TEMP\gtk3-runtime.exe"; Start-Process -FilePath "$env:TEMP\gtk3-runtime.exe" -ArgumentList "/S" -Wait
+```
+
+Environment assumptions: The installer adds the GTK3 `bin` directory to the system PATH. A new terminal session is required for this change to take effect. If you encounter `cannot load library 'libgobject-2.0-0'` before restarting, open a new terminal before running the development setup.
 
 ## License
 
